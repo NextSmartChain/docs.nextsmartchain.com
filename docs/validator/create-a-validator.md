@@ -226,44 +226,12 @@ The following will return:
 
 As you can see, the validator isActive, but the isValidator is false. No worries! You properly just started your validator. It will be accepted as a validator after the next epoch (which can take up to 4 hours). 
 
-## Request a partially withdraw
-
-In case you send to much NEXT to a validator, it's possible to do a partially withdrawal of NEXT. Be aware that this function can only be called afer all rewards are claimed.
-
-```js
-sfc.prepareToWithdrawStakePartial(requestID, web3.toWei("amountToWithdraw", "next"), {from: "0xAddress"})
-```
-
-`requestID` can be any number, which wasn't used by this validator previously. If not sure, use `0`.
-Remeber this number, you need it with the following command.
-
-:::tip Max to partial withdraw
-
-You can only withdraw the amount above the minimum stake of 25000 NEXT and the amount needed for delegators (if any)
-
-:::
-
-To finalize the withdrawal request, wait for number of seconds and epochs to get an unlock from the blockchain. After that run the following command: 
-
-```js
-sfc.partialWithdrawByRequest(requestID, {from: "0xAddress"})
-```
-
-Your withdraw will now be processed to your personal wallet. 
-
 ## Request a full withdraw
 
 A validator can withdraw the full amount of NEXT. 
 
-Note that a locked validator cannot withdraw until the node is unlocked.
-
 ```js
-sfc.prepareToWithdrawStake({from: address})
-```
-After enough seconds and epochs have passed a validator can finish the withdraw.
-
-```js
-sfc.withdrawStake({from: "0xAddress"})
+sfcc.withdraw({from: "0xAddress"})
 ```
 
 ## Lock a validator (optional)
@@ -273,10 +241,34 @@ Reward for a non-locked stake is 30% (base rate) of the full reward for a locked
 If a withdrawal is made before the lockup period expires, a penalty of 42,5% will be applied.
 
 ```js
-sfc.lockUpStake(lockupDuration, {from: "0xAddress"})
+sfcc.lockStake(validatorID, lockupDuration, web3.toWei("amount", "next"), {from: "0xAddress"})
 ```
 
 `lockupDuration` is lockup duration in seconds. Must be >= 14 days (1209600 seconds), <= 365 days (31536000 seconds).
+
+## ReLock a validator (optional)
+
+Extend lockup period or increase lockup up stake. 
+
+```js
+sfcc.relockStake(validatorID, newLockupDuration, web3.toWei("amount", "next"), {from: "0xAddress"})
+```
+
+## Unlock a validator (optional)
+
+Unlock the stake before lockup duration has elapsed.
+
+:::danger Penalty
+
+The following penalty will be withheld from the unlocked amount:
+
+(base rate = 30%)/2 + lockup rate of rewards received for epochs during the lockup period
+
+:::
+
+```js
+sfcc.unlockStake(validatorID, web3.toWei("amount", "next"), {from: "0xAddress"})
+```
 
 
 ## Issues

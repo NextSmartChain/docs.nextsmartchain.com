@@ -30,57 +30,29 @@ After being attached to the console, load the function of the smart contract
 sfcc = next.sfcContract()
 ```
 
-
-## For a Delegator
-
-### Non-compound mode:
-```js
-// check you have rewards to claim:
-sfcc.calcDelegationRewards("0xAddress", validatorID, 0, maxEpochs) // returns: rewards amount, first claimed epoch, last claimed epoch
-// claim rewards:
-sfcc.claimDelegationRewards(maxEpochs, validatorID, {from: "0xAddress"})
-```
-
-### Compound mode:
-```js
-// check you have rewards to claim:
-sfcc.calcDelegationCompoundRewards("0xAddress", validatorID, 0, maxEpochs) // returns: rewards amount, first claimed epoch, last claimed epoch
-// claim rewards:
-sfcc.claimDelegationCompoundRewards(maxEpochs, validatorID, {from: "0xAddress"})
-```
-
 ## For a Validator
 
 ### Non-compound mode:
 ```js
-YOUR_ID = sfcc.getStakerID("0xAddress") // if 0, then staker doesn't exist, or SFC functions aren't initialized correctly
+VALIDATOR_ID = sfcc.getStakerID("0xAddress") // if 0, then staker doesn't exist, or SFC functions aren't initialized correctly
+
 // check you have rewards to claim:
-sfcc.calcValidatorRewards(YOUR_ID, 0, maxEpochs) // returns: rewards amount, first claimed epoch, last claimed epoch
-
-//or 
-
-sfcc.pendingRewards("YOUR PUBLIC ADDRESS OF THE KEY", YOUR STAKER ID NUMBER) 
+sfcc.pendingRewards("0xAddress", VALIDATOR_ID) 
 
 // claim rewards:
-sfcc.claimValidatorRewards(maxEpochs, {from: "0xAddress"})
-
-//or
-
-sfcc.claimRewards(YOUR STAKER ID NUMBER, {from: "YOUR PUBLIC ADDRESS OF THE KEY"})
+sfcc.claimRewards(VALIDATOR_ID, {from: "0xAddress"})
 
 ```
 
 ### Compound mode:
 ```js
-YOUR_ID = sfcc.getStakerID("0xAddress") // if 0, then staker doesn't exist, or SFC functions aren't initialized correctly
+VALIDATOR_ID = sfcc.getStakerID("0xAddress") // if 0, then staker doesn't exist, or SFC functions aren't initialized correctly
+
 // check you have rewards to claim:
-sfcc.calcValidatorCompoundRewards(YOUR_ID, 0, maxEpochs) // returns: rewards amount, first claimed epoch, last claimed epoch
+sfcc.pendingRewards("0xAddress", VALIDATOR_ID) 
+
 // claim rewards:
-sfcc.claimValidatorCompoundRewards(maxEpochs, {from: "0xAddress"})
-
-// or
-
-sfcc.restakeRewards(YOUR STAKER ID NUMBER, {from: "YOUR PUBLIC ADDRESS OF THE KEY"})
+sfcc.restakeRewards(VALIDATOR_ID, {from: "0xAddress"})
 
 ```
 
