@@ -91,7 +91,7 @@ const config = {
           },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/NextSmartChain/docusaurus',
+            href: 'https://github.com/NextSmartChain/docs.nextsmartchain.com',
             label: 'GitHub',
             position: 'right',
           },
@@ -135,7 +135,7 @@ const config = {
               //},
               {
                 label: 'GitHub',
-                href: 'https://github.com/NextSmartChain/docusaurus',
+                href: 'https://github.com/NextSmartChain/docs.nextsmartchain.com',
               },
             ],
           },
